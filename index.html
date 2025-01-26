@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dhobi - AI Data Cleaning Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2871e6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2871e6 0%, #1a4fa8 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <div id="welcome-screen" class="min-h-screen flex flex-col">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <img src=https://drive.google.com/file/d/1uwDj3ZuGJpwOdzbB0dvG4xWs-RwZWpn5/view?usp=drive_link
+                         alt="Data Dhobi Logo" 
+                         class="h-12 w-12 rounded-full">
+                    <span class="text-2xl font-bold text-gray-800">Data Dhobi</span>
+                </div>
+                <button onclick="toggleScreen('cleaning-screen')" 
+                        class="bg-[#2871e6] text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    Start Cleaning
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="flex-1 container mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-1 text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+                    Clean Your Data<br>with AI Precision
+                </h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    Transform messy data into clean, structured formats instantly using our advanced AI-powered cleaning service.
+                </p><p class="text-lg text-gray-600 mb-8">"We strive to provide smart data solutions for a seamless experience." -</p>
+                <p class="text-lg text-blue-600 mb-6"> Startup BY : - Jeenal Shah, Suresh Chitturi, Joel Punnyquote, Richa Shrivastava, and Dhananjay Patil</p>
+                <button onclick="toggleScreen('cleaning-screen')" 
+                        class="bg-[#2871e6] text-white px-8 py-3 rounded-lg text-lg hover:bg-blue-700 transition-colors">
+                    Get Started
+                </button>
+            </div>
+            <div class="flex-1">
+                <img src="https://firebasestorage.googleapis.com/v0/b/widecanvas-d0dd4.appspot.com/o/additional-images%2Fdata%20dhobi.jpg?alt=media&token=db45dfff-4474-40f6-8c91-6dcd1411cf7e" 
+                     alt="Data Cleaning Illustration" 
+                     class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Cleaning Screen -->
+    <div id="cleaning-screen" class="min-h-screen hidden">
+        <nav class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="toggleScreen('welcome-screen')">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/widecanvas-d0dd4.appspot.com/o/additional-images%2FDALL%C2%B7E%202025-01-26%2020.40.24%20-%20A%20cartoon-style%20logo%20for%20'Data%20Dhobi'%2C%20featuring%20a%20friendly%20and%20professional%20cartoon%20character%20of%20a%20dhobi%20(Indian%20laundry%20worker)%20holding%20a%20digital%20de.webp?alt=media&token=da008c2c-7cd9-48c4-9044-71a73c1da2a2" 
+                         alt="Data Dhobi Logo" 
+                         class="h-12 w-12 rounded-full">
+                    <span class="text-2xl font-bold text-gray-800">Data Dhobi</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Clean Your Data</h2>
+                
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                    <textarea id="input-data" 
+                              class="w-full h-48 p-4 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-[#2871e6]"
+                              placeholder="Paste your messy data here..."></textarea>
+                    
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <select id="data-type" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#2871e6]">
+                            <option value="auto">Auto Detect</option>
+                            <option value="csv">CSV</option>
+                            <option value="json">JSON</option>
+                            <option value="text">Plain Text</option>
+                        </select>
+                        <select id="cleaning-options" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#2871e6]">
+                            <option value="all">All Cleaning Options</option>
+                            <option value="formatting">Format Only</option>
+                            <option value="duplicates">Remove Duplicates</option>
+                            <option value="missing">Handle Missing Values</option>
+                        </select>
+                    </div>
+
+                    <button onclick="cleanData()" 
+                            class="w-full bg-[#2871e6] text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                        Clean Data
+                    </button>
+                </div>
+
+                <div id="result-container" class="hidden">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">Cleaned Data</h3>
+                            <button onclick="copyToClipboard()" 
+                                    class="text-[#2871e6] hover:text-blue-700 flex items-center gap-2">
+                                <i class="bi bi-clipboard"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <pre id="cleaned-data" class="bg-gray-50 p-4 rounded-lg overflow-x-auto"></pre>
+                    </div>
+                </div>
+
+                <div id="loading" class="hidden">
+                    <div class="flex flex-col items-center justify-center p-8">
+                        <div class="loader mb-4"></div>
+                        <p class="text-gray-600">Cleaning your data...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate and store a persistent userId
+        let userId = localStorage.getItem('dataDhobiUserId');
+        if (!userId) {
+            userId = 'user_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('dataDhobiUserId', userId);
+        }
+
+        function toggleScreen(screenId) {
+            document.getElementById('welcome-screen').classList.toggle('hidden', screenId !== 'welcome-screen');
+            document.getElementById('cleaning-screen').classList.toggle('hidden', screenId !== 'cleaning-screen');
+        }
+
+        async function cleanData() {
+            const inputData = document.getElementById('input-data').value.trim();
+            if (!inputData) {
+                alert('Please enter some data to clean');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+
+            try {
+                const response = await fetch('https://r0c8kgwocscg8gsokogwwsw4.zetaverse.one/ai', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer Md0DYnLQYIbHihRVyjBCjhcb0x63',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: "user",
+                                content: [
+                                    {
+                                        type: "text",
+                                        text: `Clean and structure the following data. Data type: ${document.getElementById('data-type').value}, Cleaning options: ${document.getElementById('cleaning-options').value}. Data: ${inputData}`
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                });
+
+                const result = await response.json();
+                
+                // Display cleaned data
+                document.getElementById('cleaned-data').textContent = result.message;
+                document.getElementById('result-container').classList.remove('hidden');
+            } catch (error) {
+                alert('An error occurred while cleaning the data. Please try again.');
+                console.error('Error:', error);
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+            }
+        }
+
+        function copyToClipboard() {
+            const cleanedData = document.getElementById('cleaned-data').textContent;
+            navigator.clipboard.writeText(cleanedData).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
